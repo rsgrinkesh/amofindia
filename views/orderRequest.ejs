@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Request Form</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div class="container">
+    <div class="panel">
+      <h2>Need Help with Your Order?</h2>
+      <p>Use this form to cancel, return, or replace your order quickly and easily.</p>
+      <p>Ensure that you provide accurate details so that we can process your request efficiently.</p>
+    </div>
+    <div class="form-container">
+      <h2>Order Request</h2>
+      <form id="order-form" method="POST" action="/submit-order" onsubmit="sendMail(event)">
+
+        <label for="full-name">Full Name</label>
+        <input type="text" id="full-name" name="fullname" placeholder="Enter your full name" required>
+
+        <label for="email">Email ID</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="contact-no">Contact Number</label>
+        <input type="tel" id="contact-no" name="contactno" placeholder="Enter your contact number" required>
+
+        <label for="request-type">Request Type</label>
+        <select id="request-type" name="requesttype" required>
+          <option value="cancel">Cancel Order</option>
+          <option value="return">Return Order</option>
+          <option value="replace">Replace Order</option>
+        </select>
+
+        <label for="reason">Reason</label>
+        <textarea id="reason" name="reason" rows="4" placeholder="Please explain your request" required></textarea>
+
+        <div class="button-container">
+          <button type="submit" class="submit-btn">Submit Request</button>
+          <button type="button" class="back-btn" onclick="goBack()">Back</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+(function(){
+  emailjs.init({
+      publicKey: "jI8GzGh9QddR63Soh",
+  });
+})();
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<script>
+    function sendMail(event) {
+      event.preventDefault();  // Prevent page reload
+
+      var params = {
+          fullname: document.getElementById("full-name").value,
+          email: document.getElementById("email").value,  
+          contactno: document.getElementById("contact-no").value,
+          requesttype: document.getElementById("request-type").value,  
+          reason: document.getElementById("reason").value,
+      };
+
+      // Send email via EmailJS
+      const serviceID = "OrderRequestAmoIndia";
+      const templateID = "template_vs3esvh";
+
+      emailjs.send(serviceID, templateID, params)
+          .then(res => {
+              console.log("Email Sent", res);
+          })
+          .catch(err => console.log("Email Error:", err));
+
+      // Send data to backend to save in PostgreSQL
+      fetch('/submit-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(params)
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log("Server Response:", data);
+          if (data.success) {
+              swal("Request Submitted!", "Your order request has been received.", "success");
+              document.getElementById("order-form").reset();
+          } else {
+              swal("Error!", "Failed to save order. Try again!", "error");
+          }
+      })
+      .catch(error => console.error("Fetch Error:", error));
+  }
+
+  function goBack() {
+    window.history.back();
+  }
+</script>
+</body>
+</html>

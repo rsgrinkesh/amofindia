@@ -1,0 +1,183 @@
+<%- include("partials/header.ejs") %>
+
+<div class="amazon-product-page">
+    <div class="product-container">
+        <div class="product-display">
+            <div class="product-image-container">
+                <img src="images/crow.jpg" class="product-image" alt="AMO Business Handbook">
+            </div>
+            <div class="product-details">
+                <h1 class="product-title">AMO BUSINESS HANDBOOK</h1>
+                <p class="product-tagline">Your Guide to Starting Something of Your Own</p>
+                <div class="product-price">
+                    <span class="old-price">₹900.00</span>
+                    <span class="new-price">₹299.00</span>
+                </div>
+                <ul class="product-features">
+                    <li>✔ 250+ Thought-Provoking Questions</li>
+                    <li>✔ 12 Comprehensive Chapters</li>
+                    <li>✔ 3 Detailed Sections</li>
+                </ul>
+                <div class="stock-status">In Stock</div>
+                <div class="delivery-info">Eligible for Free Shipping</div>
+            </div>
+        </div>
+
+        <div class="order-section">
+            <h2>Secure Your Copy Now</h2>
+            <form id="orderForm" class="order-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact Number:</label>
+                    <input type="tel" id="contact" name="contact" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address:</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pincode:</label>
+                    <input type="text" id="pincode" name="pincode" required pattern="\d{6}">
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms and Conditions</a></label>
+                </div>
+                
+                <button type="button" id="proceedBtn" class="btn-order">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Purchase Options -->
+<div class="container-v text-center p-4">
+    <h2 class="mb-3 fw-bold text-primary">📚 Grab Your Copy Now!</h2>
+    <p class="mb-4 text-muted">Get your hands on this amazing product. Choose your preferred platform below.</p>
+    <div class="d-flex justify-content-center gap-3">
+        <a href="https://www.whatsapp.com/product/8282480915107535/917666523672/?app_absent=0" class="btn btn-success btn-lg btn-custom d-flex align-items-center">
+            <i class="fab fa-whatsapp me-2"></i> WhatsApp Business
+        </a>
+        <a href="https://www.amazon.in/dp/B0DVH6YBP3?ref=cm_sw_r_ffobk_cso_cp_apin_dp_MVN48MBWBSZZTMX1WV0E_1&ref_=cm_sw_r_ffobk_cso_cp_apin_dp_MVN4" class="btn btn-warning btn-lg btn-custom d-flex align-items-center">
+            <i class="fab fa-amazon me-2"></i> Amazon Shopping
+        </a>
+    </div>
+</div>
+
+<!-- Shipping & Terms Section -->
+<div class="amazon-product-page">
+    <div class="product-container">
+        <div class="order-section">
+            <div class="card p-4 shadow-lg border-0">
+                <h2 class="text-center mb-4"><i class="fas fa-shipping-fast text-primary"></i> Shipping & Terms</h2>
+                <h4><i class="fas fa-truck text-success"></i> Delivery Timeline</h4>
+                <p>Orders are processed within <strong>24-48 hours</strong>. Estimated delivery time:</p>
+                <ul>
+                    <li><i class="fas fa-box"></i> <strong>India:</strong> 5-7 business days</li>
+                    <li><i class="fas fa-globe"></i> <strong>International:</strong> 10-15 business days</li>
+                </ul>
+                <h4><i class="fas fa-undo text-danger"></i> Return & Cancellation Policy</h4>
+                <p>Orders can be canceled within <strong>24 hours</strong> of purchase using the <strong>Cancel Order</strong> button. Returns are accepted within <strong>7 days</strong> if the book is in an unused condition.</p>
+                <h4><i class="fas fa-file-contract text-warning"></i> Terms & Conditions</h4>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> All sales are final after 7 days of delivery.</li>
+                    <li><i class="fas fa-ban"></i> Digital copies are non-refundable.</li>
+                    <li><i class="fas fa-exclamation-triangle"></i> For damaged or incorrect products, contact customer support.</li>
+                </ul>
+                <h4><i class="fas fa-exchange-alt text-info"></i> Order Returning</h4>
+                <p>To return an order, ensure the book is in <strong>unused and undamaged condition</strong> with original packaging. Return requests must be made within <strong>7 days</strong>. Refunds are processed within <strong>5-7 business days</strong> upon approval.</p>
+                <button onclick="window.location.href='/orderRequest';" class="btn btn-warning btn-sm w-100 mt-3">
+                    <i class="fas fa-reply"></i> Return Order
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="/js/payment.js"></script>
+<script>
+    document.getElementById("proceedBtn").addEventListener("click", async () => {
+        const formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            contact: document.getElementById("contact").value,
+            address: document.getElementById("address").value,
+            pincode: document.getElementById("pincode").value,
+            amount: 299 // Price in INR
+        };
+
+        if (!document.getElementById("terms").checked) {
+            Swal.fire("Oops!", "You must agree to the terms and conditions.", "error");
+            return;
+        }
+
+        try {
+            const response = await fetch("/proceedpay", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ amount: formData.amount }),
+            });
+
+            const { order } = await response.json();
+
+            var options = {
+                key: "rzp_test_XjJnfgmejb571B", 
+                amount: order.amount, 
+                currency: "INR",
+                order_id: order.id,
+                handler: async function (response) {
+                    formData.payment_id = response.razorpay_payment_id;
+
+                    await fetch("/order", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData),
+                    });
+
+                    sendEmail(formData);
+                },
+                theme: { color: "#3399cc" }
+            };
+
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        } catch (error) {
+            console.error("Error initiating payment:", error);
+            Swal.fire("Error", "Something went wrong. Please try again.", "error");
+        }
+    });
+
+    // EmailJS integration
+    function sendEmail(formData) {
+        emailjs.init("gdgZyRTgZizsaJfxM");
+
+        emailjs.send("Order_Amo_India", "template_xurover", {
+            user_name: formData.name,
+            user_email: formData.email,
+            user_contact: formData.contact,
+            user_address: formData.address,
+            user_pincode: formData.pincode,
+            user_amount: formData.amount,
+            payment_id: formData.payment_id
+        })
+        .then(response => {
+            Swal.fire("Order Placed!", `Your payment was successful.\nPayment ID: ${formData.payment_id}`, "success");
+        })
+        .catch(error => {
+            console.error("EmailJS error:", error);
+            Swal.fire("Email Failed", "We couldn't send the email, but your order is placed.", "warning");
+        });
+    }
+
+</script>
+<%- include("partials/footer.ejs") %>

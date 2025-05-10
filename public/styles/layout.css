@@ -1,0 +1,138 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+#amo-header {
+    background: #222;
+    padding: 15px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Layout */
+#amo-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo & Title */
+.amo-header-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.amo-logo {
+    height: 50px;
+    border-radius: 10px;
+}
+#amo-title {
+    font-size: 1.8rem;
+    color: white;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* Navigation */
+#amo-nav {
+    display: flex;
+}
+.amo-nav-menu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+}
+.amo-nav-menu li {
+    display: inline;
+}
+.amo-nav-link {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fff;
+    padding: 10px 15px;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+.amo-nav-link::after {
+    content: '';
+    width: 0%;
+    height: 3px;
+    background: #ffcc00;
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+}
+.amo-nav-link:hover::after {
+    width: 100%;
+}
+.amo-nav-link:hover {
+    color: #ffcc00;
+}
+
+/* Footer */
+#amo-footer {
+    background: #222;
+    padding: 30px 0;
+    border-top: 3px solid #ffcc00;
+    text-align: center;
+}
+#amo-footer-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+#amo-footer-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.amo-footer-menu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    flex-wrap: wrap;
+}
+.amo-footer-link {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fff;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+}
+.amo-footer-link:hover {
+    color: #ffcc00;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #amo-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .amo-nav-menu {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .amo-footer-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

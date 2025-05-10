@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fdf6c3;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    display: flex;
+    background: #ffcc00;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    width: 700px;
+    overflow: hidden;
+    border:2px ;
+    border-color: #ffcc00;
+    border-radius: 20px;
+   
+  }
+  .panel {
+    background:#ffcc00;
+    color: black;
+    padding: 20px;
+    width: 40%;
+  }
+  .panel h2 {
+    margin-bottom: 15px;
+  }
+  .panel p {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .form-container {
+    padding: 20px;
+    width: 60%;
+    background: white;
+    color: #000;
+  }
+  h2 {
+    text-align: center;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+  }
+  input, select, textarea {
+    width: 95%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    background: #fff;
+    color: #000;
+  }
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+  }
+  .submit-btn {
+    background-color:  #ffcc00;
+    color: white;
+    margin-right: 10px;
+  }
+  .submit-btn:hover {
+    background-color: #333;
+  }
+  .back-btn {
+    background-color: #ffcc00;
+    color:white;
+  }
+  .back-btn:hover {
+    background-color: #333;
+  }
+  
